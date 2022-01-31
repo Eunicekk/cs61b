@@ -5,10 +5,11 @@ public class NBody {
         double radius = in.readDouble();
         return radius;
     }
-    public static Body[] readBodies(String filename) {
+
+    public static Planet[] readPlanets(String filename) {
         In in = new In(filename);
         int numbers = in.readInt();
-        Body[] Bodies = new Body[numbers];
+        Planet[] Bodies = new Planet[numbers];
         double radius = in.readDouble();
         for (int i = 0; i < numbers; i++) {
             double xP = in.readDouble();
@@ -17,7 +18,7 @@ public class NBody {
             double yV = in.readDouble();
             double m = in.readDouble();
             String img = in.readString();
-            Bodies[i] = new Body(xP, yP, xV, yV, m, img);
+            Bodies[i] = new Planet(xP, yP, xV, yV, m, img);
         }
         return Bodies;
     }
@@ -27,8 +28,7 @@ public class NBody {
         double dt = Double.parseDouble(args[1]);
         String filename = args[2];
         double radius = NBody.readRadius(filename);
-        Body[] bodies = NBody.readBodies(filename);
-
+        Planet[] bodies = NBody.readPlanets(filename);
 
 
         for (int i = 0; i < bodies.length; i++) {
@@ -48,7 +48,7 @@ public class NBody {
             }
 
             StdDraw.enableDoubleBuffering();
-            StdDraw.setScale(-radius,radius);
+            StdDraw.setScale(-radius, radius);
             StdDraw.clear();
             StdDraw.picture(0, 0, "images/starfield.jpg");
             StdDraw.show();
@@ -62,9 +62,9 @@ public class NBody {
         StdOut.printf("%d\n", bodies.length);
         StdOut.printf("%.2e\n", radius);
         for (int i = 0; i < bodies.length; i++) {
-        StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
-                bodies[i].xxPos, bodies[i].yyPos, bodies[i].xxVel,
-                bodies[i].yyVel, bodies[i].mass, bodies[i].imgFileName);   
-}
+            StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+                    bodies[i].xxPos, bodies[i].yyPos, bodies[i].xxVel,
+                    bodies[i].yyVel, bodies[i].mass, bodies[i].imgFileName);
+        }
     }
 }
